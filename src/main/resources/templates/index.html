@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- 兼容IE -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>bootstrap-treeview</title>
+    <link th:href="@{/webjars/bootstrap/3.3.7/dist/css/bootstrap.min.css}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap-treeview/1.2.0/dist/bootstrap-treeview.min.css}">
+    <link rel="stylesheet" th:href="@{/webjars/jQuery-contextMenu/2.8.0/dist/jquery.contextMenu.min.css}">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4">
+            <h2>默认</h2>
+            <div id="treeview1" class="">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Script -->
+<script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/5.0.1/js/bootstrap.min.js}"></script>
+<script th:src="@{/webjars/bootstrap-treeview/1.2.0/dist/bootstrap-treeview.min.js}"></script>
+<script type="text/javascript">
+    $(function() {
+        // 设置树的相关属性并构造树
+        $('#treeview1').treeview({
+            backColor: "#FFFFFF",
+            color: "#428bca",
+            enableLinks: true,
+            data: getTree()
+        });
+
+        //定义树里的数据来源
+        function getTree(){
+            var data = [
+                {
+                    text: 'Parent 1',
+                    href: '#parent1',
+                    tags: ['4'],
+                    nodes: [
+                        {
+                            text: 'Child 1',
+                            href: '#child1',
+                            tags: ['2'],
+                            nodes: [
+                                {
+                                    text: 'Grandchild 1',
+                                    href: '#grandchild1',
+                                    tags: ['0']
+                                },
+                                {
+                                    text: 'Grandchild 2',
+                                    href: '#grandchild2',
+                                    tags: ['0']
+                                }
+                            ]
+                        },
+                        {
+                            text: 'Child 2',
+                            href: '#child2',
+                            tags: ['0']
+                        }
+                    ]
+                },
+                {
+                    text: 'Parent 2',
+                    href: '#parent2',
+                    tags: ['0']
+                },
+                {
+                    text: 'Parent 3',
+                    href: '#parent3',
+                    tags: ['0']
+                },
+                {
+                    text: 'Parent 4',
+                    href: '#parent4',
+                    tags: ['0']
+                },
+                {
+                    text: 'Parent 5',
+                    href: '#parent5'  ,
+                    tags: ['0']
+                }
+            ];
+            return data;
+        }
+    });
+</script>
+</body>
+</html>

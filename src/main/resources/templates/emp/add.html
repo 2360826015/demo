@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)http://getbootstrap.com/docs/4.0/examples/dashboard/ -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Dashboard Template for Bootstrap</title>
+    <!-- Bootstrap core CSS -->
+
+    <link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/5.0.1/css/bootstrap.min.css}" rel="stylesheet">
+<!--    日期选择器-->
+    <link href="asserts/css/bootstrap-datetimepicker.min.css" th:href="@{/webjars/bootstrap-datetimepicker/2.4.4/css/bootstrap-datetimepicker.min.css}" rel="stylesheet" />
+    <!-- Custom styles for this template -->
+    <link href="asserts/css/dashboard.css" th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
+    <style type="text/css">
+        /* Chart.js */
+
+        @-webkit-keyframes chartjs-render-animation {
+            from {
+                opacity: 0.99
+            }
+            to {
+                opacity: 1
+            }
+        }
+
+        @keyframes chartjs-render-animation {
+            from {
+                opacity: 0.99
+            }
+            to {
+                opacity: 1
+            }
+        }
+
+        .chartjs-render-monitor {
+            -webkit-animation: chartjs-render-animation 0.001s;
+            animation: chartjs-render-animation 0.001s;
+        }
+        .nig
+        {
+            color:Gray;
+        }
+    </style>
+</head>
+
+<body>
+<div th:replace="commons/bar::topbar"></div>
+<div th:replace="~{commons/bar::#sidebar(activeUri='list')}" ></div>
+    <main style="margin-left: 300px" role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+    <form th:action="@{/add}" method="post">
+        <div style="margin-bottom: 20px;margin-top: 20px" class="form-group">
+            <label>姓名</label>
+            <input id="name" name="name" style="width: 500px" type="text" class="form-control">
+        </div>
+        <div style="margin-bottom: 20px" class="form-group">
+            <label>性别</label>
+            <select  style="width: 500px" class="form-control" name="sex">
+                <option name="sex" value="1">男</option>
+                <option name="sex" value="2">女</option>
+<!--                <option selected hidden>选择性别</option>-->
+            </select>
+        </div>
+        <div style="margin-bottom: 20px" class="form-group">
+            <div style="display: inline-block" class="input-append date" id="datetimepicker">出生年月
+                <input id="birthday" class="form-control" name="birthday" size="16" type="text" readonly>
+                <span class="add-on"><i data-date-icon="icon-calendar" class="icon-calendar"></i></span>
+            </div>
+        </div>
+        <div style="margin-bottom: 20px" class="form-group">年龄
+            <input name="age" id="age" value="" class="form-control" style="width: 60px;height: 30px" readonly>
+        </div>
+        <div style="margin-bottom: 20px" class="form-group">
+            <label>所属组织</label>
+            <!--提交的是部门的id-->
+            <select  style="width: 500px" id="orgName" class="form-control" name="orgId">
+                <option  th:value="${olist.id}" th:each="olist:${orgList}" th:text="${olist.text}"></option>
+                <option value="" selected hidden>选择所属组织</option>
+            </select>
+        </div>
+        <button style="margin-bottom: 20px" id="subBtn" type="submit" class="btn btn-primary">提交添加</button>
+    </form>
+    </main>
+
+
+<!--	时间选择器-->
+<script type="text/javascript" th:src="@{/webjars/jquery/3.6.0/jquery.js}"></script>
+<script type="text/javascript" th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/webjars/bootstrap/5.0.1/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/webjars/bootstrap-datetimepicker/2.4.4/js/bootstrap-datetimepicker.js}"></script>
+<script type="text/javascript" th:src="@{/webjars/bootstrap-datetimepicker/2.4.4/js/locales/bootstrap-datetimepicker.zh-CN.js}"></script>
+
+<script type="text/javascript">
+    $('#datetimepicker').datetimepicker({
+        forceParse: 0,//设置为0，时间不会跳转1899，会显示当前时间。
+        language: "zh-CN",//显示中文
+        format: 'yyyy-mm-dd',//显示格式
+        minView: "month",//设置只显示到月份
+        initialDate: new Date(),//初始化当前日期
+        autoclose: true,//选中自动关闭
+        todayBtn: true//显示今日按钮
+    })
+    $("#datetimepicker").datetimepicker("setDate", new Date());  //设置显示默认当天的时间
+
+    //获取年龄
+    $(function (){
+        if($('#birthday').val()!==""){
+            var strBirthday = $('#birthday').val();
+            $('#age').val(jsGetAge(strBirthday));
+        }
+        $('#birthday').change(function () {
+            var strBirthday = $('#birthday').val();
+            $('#age').val(jsGetAge(strBirthday)).change();
+        })
+    })
+
+    function jsGetAge(strBirthday) {
+        var returnAge;
+        var strBirthdayArr = strBirthday.split("-");
+        var birthYear = strBirthdayArr[0];
+        var birthMonth = strBirthdayArr[1];
+        var birthDay = strBirthdayArr[2];
+
+        d = new Date();
+        var nowYear = d.getFullYear();
+        var nowMonth = d.getMonth() + 1;
+        var nowDay = d.getDate();
+
+        if (nowYear == birthYear) {
+            returnAge = 0;//同年 则为0岁
+        } else {
+            var ageDiff = nowYear - birthYear; //年之差
+            if (ageDiff > 0) {
+                if (nowMonth == birthMonth) {
+                    var dayDiff = nowDay - birthDay;//日之差
+                    if (dayDiff < 0) {
+                        returnAge = ageDiff - 1;
+                    } else {
+                        returnAge = ageDiff;
+                    }
+                } else {
+                    var monthDiff = nowMonth - birthMonth;//月之差
+                    if (monthDiff < 0) {
+                        returnAge = ageDiff - 1;
+                    } else {
+                        returnAge = ageDiff;
+                    }
+                }
+            } else {
+                returnAge = -1;//返回-1 表示出生日期输入错误 晚于今天
+            }
+        }
+        return returnAge;//返回周岁年龄
+    }
+
+</script>
+<!--    表单提交插件-->
+<script th:src="@{/webjars/bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js}"></script>
+<link rel="stylesheet" th:href="@{/webjars/bootstrapvalidator/0.5.3/css/bootstrapValidator.min.css}"/>
+
+<script type="text/javascript">
+    $(function () {
+        $('form').bootstrapValidator({
+            live: 'submitted',
+            message: 'This value is not valid',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                name: {
+                    message: '用户名验证失败',
+                    validators: {
+                        notEmpty: {
+                            message: '*姓名不能为空*'
+                        }
+                    }
+                },
+                orgId: {
+                    validators: {
+                        notEmpty: {
+                            message: '*请选择所属组织*'
+                        }
+                    }
+                },
+                age:{
+                    trigger:"change",
+                    validators: {
+                        notEmpty: {
+                            message: '*请选择出生日期得到年龄*'
+                        },
+                        lessThan: {
+                            value: 65,
+                            message: '*最高年龄不超过65岁*'
+                        },
+                        greaterThan: {
+                            value: 18,
+                            message: '*最低年龄不小于18岁*'
+
+                        }
+                    }
+                }
+            }
+        });
+    });
+</script>
+</body>
+
+</html>
