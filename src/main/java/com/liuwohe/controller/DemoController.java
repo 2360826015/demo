@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -47,6 +49,13 @@ public class DemoController {
         System.out.println("前端传入条件："+select);
         List<EmployeeEntity> empList = empService.findById(select);
         return empList;
+    }
+
+    //表格导出
+    @ResponseBody
+    @RequestMapping("/download")
+    public void downLoadExcel(HttpServletResponse response) throws IOException {
+            empService.downloadExcel(response);
     }
 
 }

@@ -1,19 +1,19 @@
 package com.liuwohe.service.Impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.liuwohe.entity.EmployeeEntity;
 import com.liuwohe.entity.OrganizationEntity;
 import com.liuwohe.entity.SelectEntity;
 import com.liuwohe.repository.EmployeeEntityMapper;
 import com.liuwohe.service.EmpService;
 import com.liuwohe.service.OrgService;
-import org.apache.ibatis.annotations.Select;
+import com.liuwohe.utils.ExcelUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 @SuppressWarnings("all")
@@ -60,5 +60,11 @@ public class EmpServiceImpl implements EmpService {
          * System.out.println(entityList);
          */
         return empList;
+    }
+
+    @Override
+    public void downloadExcel(HttpServletResponse response) throws IOException {
+        List<EmployeeEntity> empList = empMapper.findAll();
+        ExcelUtils.exportExcel(empList, "员工信息统计", "员工信息", EmployeeEntity.class, "员工信息统计表", response);
     }
 }

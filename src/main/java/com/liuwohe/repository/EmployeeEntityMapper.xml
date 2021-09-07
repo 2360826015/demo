@@ -19,7 +19,7 @@
     id, org_id, sex, birthday, e_name, age, salary
   </sql>
   <select id="findAll" resultMap="BaseResultMap">
-    select emp.id, emp.org_id, emp.sex, emp.birthday, emp.e_name, emp.age,org.org_name
+    select emp.id, emp.org_id, emp.sex, emp.birthday, emp.e_name, emp.age,emp.salary,org.org_name
     from employee emp left join organization org
     on emp.org_id = org.id
   </select>

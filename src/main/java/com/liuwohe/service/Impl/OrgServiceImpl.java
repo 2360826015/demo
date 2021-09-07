@@ -6,6 +6,7 @@ import com.liuwohe.entity.SelectEntity;
 import com.liuwohe.repository.OrganizationEntityMapper;
 import com.liuwohe.service.OrgService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
