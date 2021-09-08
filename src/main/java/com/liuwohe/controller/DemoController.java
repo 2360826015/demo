@@ -5,6 +5,7 @@ import com.liuwohe.entity.OrganizationEntity;
 import com.liuwohe.entity.SelectEntity;
 import com.liuwohe.service.EmpService;
 import com.liuwohe.service.OrgService;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +22,8 @@ public class DemoController {
     private OrgService orgService;
     @Autowired
     private EmpService empService;
+    @Autowired
+    RabbitTemplate rabbitTemplate;
 
     //进入主页面
     @RequestMapping("/index")

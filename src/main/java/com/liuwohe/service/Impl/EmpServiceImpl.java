@@ -7,8 +7,12 @@ import com.liuwohe.repository.EmployeeEntityMapper;
 import com.liuwohe.service.EmpService;
 import com.liuwohe.service.OrgService;
 import com.liuwohe.utils.ExcelUtils;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.redis.cache.RedisCacheManager;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
@@ -23,9 +27,14 @@ public class EmpServiceImpl implements EmpService {
     @Autowired
     private OrgService orgService;
 
+    @RabbitListener(queues = "liuwohe.test")
+    public void test(){
+        System.out.println("消息队列监听ing");
+    }
 
     //查询得到员工列表
     @Override
+    @Cacheable(cacheNames = "empList")
     public List<EmployeeEntity> getList() {
         List<EmployeeEntity> empList = empMapper.findAll();
         return empList;

@@ -30,6 +30,7 @@ public class OrgServiceImpl implements OrgService {
 
     //根据查询得到树型数据
     @Override
+    @Cacheable(cacheNames = "orgTree")
     public List<OrganizationEntity> getOrgTree(SelectEntity selectEntity) {
         QueryWrapper<OrganizationEntity> qw = new QueryWrapper<>();
         qw.eq("parent_id", selectEntity.getOrgName())

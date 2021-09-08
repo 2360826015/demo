@@ -7,8 +7,14 @@ spring:
     password: root
     username: root
     url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+  redis:
+    host: 192.168.102.157
+  rabbitmq:
+    username: guest
+    password: guest
 
 #mybatis-plus配置
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
