@@ -39,15 +39,15 @@ public class OrgServiceImpl implements OrgService {
         // 得到一级节点资源列表
         List<OrganizationEntity> orgEntity = orgMapper.selectList(qw);
         if (orgEntity != null && orgEntity.size() > 0) {
-            orgEntity.forEach(o->{
-             findAllChild(o);
+            orgEntity.forEach(o -> {
+                findAllChild(o);
             });
         }
         return orgEntity;
     }
 
     public void findAllChild(OrganizationEntity orgEntity) {
-        QueryWrapper<OrganizationEntity> qw = new  QueryWrapper<>();
+        QueryWrapper<OrganizationEntity> qw = new QueryWrapper<>();
         qw.eq("parent_id", orgEntity.getId());
         // 首次进入这个方法时，查出的是二级节点列表
         // 递归调用时，就能依次查出三、四、五等等级别的节点列表，
@@ -55,7 +55,7 @@ public class OrgServiceImpl implements OrgService {
         List<OrganizationEntity> orgEntitys = orgMapper.selectList(qw);
         orgEntity.setNodes(orgEntitys);
         if (orgEntitys != null && orgEntitys.size() > 0) {
-            orgEntitys.forEach(o-> {
+            orgEntitys.forEach(o -> {
                 findAllChild(o);
             });
         }

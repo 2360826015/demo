@@ -25,7 +25,7 @@
 <script th:src="@{/webjars/bootstrap/5.0.1/js/bootstrap.min.js}"></script>
 <script th:src="@{/webjars/bootstrap-treeview/1.2.0/dist/bootstrap-treeview.min.js}"></script>
 <script type="text/javascript">
-    $(function() {
+    $(function () {
         // 设置树的相关属性并构造树
         $('#treeview1').treeview({
             backColor: "#FFFFFF",
@@ -35,7 +35,7 @@
         });
 
         //定义树里的数据来源
-        function getTree(){
+        function getTree() {
             var data = [
                 {
                     text: 'Parent 1',
@@ -83,7 +83,7 @@
                 },
                 {
                     text: 'Parent 5',
-                    href: '#parent5'  ,
+                    href: '#parent5',
                     tags: ['0']
                 }
             ];

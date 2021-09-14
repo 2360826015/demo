@@ -11,9 +11,11 @@
     <title>Dashboard Template for Bootstrap</title>
     <!-- Bootstrap core CSS -->
 
-    <link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/5.0.1/css/bootstrap.min.css}" rel="stylesheet">
-<!--    日期选择器-->
-    <link href="asserts/css/bootstrap-datetimepicker.min.css" th:href="@{/webjars/bootstrap-datetimepicker/2.4.4/css/bootstrap-datetimepicker.min.css}" rel="stylesheet" />
+    <link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/5.0.1/css/bootstrap.min.css}"
+          rel="stylesheet">
+    <!--    日期选择器-->
+    <link href="asserts/css/bootstrap-datetimepicker.min.css"
+          th:href="@{/webjars/bootstrap-datetimepicker/2.4.4/css/bootstrap-datetimepicker.min.css}" rel="stylesheet"/>
     <!-- Custom styles for this template -->
     <link href="asserts/css/dashboard.css" th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
     <style type="text/css">
@@ -46,52 +48,58 @@
 
 <body>
 <div th:replace="commons/bar::topbar"></div>
-<div th:replace="~{commons/bar::#sidebar(activeUri='list')}" ></div>
-    <main style="margin-left: 300px" role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+<div th:replace="~{commons/bar::#sidebar(activeUri='list')}"></div>
+<main style="margin-left: 300px" role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
     <form th:action="@{/update}" method="post">
-        <input name="id" th:value="${emp.id}" type="hidden" />
-        <div style="margin-bottom: 20px;margin-top: 20px"  class="form-group">
+        <input name="id" th:value="${emp.id}" type="hidden"/>
+        <div style="margin-bottom: 20px;margin-top: 20px" class="form-group">
             <label>姓名</label>
-            <input name="name" style="width: 500px" type="text" class="form-control" th:value="${emp.name}" placeholder="请输入姓名">
+            <input name="name" style="width: 500px" type="text" class="form-control" th:value="${emp.name}"
+                   placeholder="请输入姓名">
         </div>
         <div style="margin-bottom: 20px" class="form-group">
             <label>性别</label>
-            <select  style="width: 500px" class="form-control" name="sex">
+            <select style="width: 500px" class="form-control" name="sex">
                 <option name="sex" th:selected="${emp.sex}==1" th:text="男" value="1">男</option>
                 <option name="sex" th:selected="${emp.sex}==2" th:text="女" value="2">女</option>
             </select>
         </div>
         <div style="margin-bottom: 20px" class="form-group">
             <div style="display: inline-block" class="input-append date" id="datetimepicker">出生年月
-                <input id="birthday" th:value="${#dates.format(emp.birthday,'yyyy-MM-dd')}" class="form-control" name="birthday" size="16" type="text" readonly>
+                <input id="birthday" th:value="${#dates.format(emp.birthday,'yyyy-MM-dd')}" class="form-control"
+                       name="birthday" size="16" type="text" readonly>
                 <span class="add-on"><i data-date-icon="icon-calendar" class="icon-calendar"></i></span>
             </div>
         </div>
         <div style="margin-bottom: 20px" class="form-group">年龄
-            <input name="age" id="age" value="" class="form-control" th:value="${emp.age}" style="width: 60px;height: 30px" readonly >
+            <input name="age" id="age" value="" class="form-control" th:value="${emp.age}"
+                   style="width: 60px;height: 30px" readonly>
         </div>
         <div style="margin-bottom: 20px" class="form-group">
             <label>所属组织</label>
             <!--提交的是部门的id-->
-            <select  style="width: 500px" id="text" class="form-control" name="orgId">
-                <option th:selected="${olist.id}==${emp.orgId}"  th:value="${olist.id}" th:each="olist:${orgList}" th:text="${olist.text}"></option>
-<!--                <option selected hidden>选择所属组织</option>-->
+            <select style="width: 500px" id="text" class="form-control" name="orgId">
+                <option th:selected="${olist.id}==${emp.orgId}" th:value="${olist.id}" th:each="olist:${orgList}"
+                        th:text="${olist.text}"></option>
+                <!--                <option selected hidden>选择所属组织</option>-->
             </select>
         </div>
         <button style="margin-bottom: 20px" id="subBtn" type="submit" class="btn btn-primary">保存修改</button>
     </form>
-    </main>
+</main>
 <!--	时间选择器-->
 <script type="text/javascript" th:src="@{/webjars/jquery/3.6.0/jquery.js}"></script>
 <script type="text/javascript" th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
 <script type="text/javascript" th:src="@{/webjars/bootstrap/5.0.1/js/bootstrap.min.js}"></script>
-<script type="text/javascript" th:src="@{/webjars/bootstrap-datetimepicker/2.4.4/js/bootstrap-datetimepicker.js}"></script>
-<script type="text/javascript" th:src="@{/webjars/bootstrap-datetimepicker/2.4.4/js/locales/bootstrap-datetimepicker.zh-CN.js}"></script>
+<script type="text/javascript"
+        th:src="@{/webjars/bootstrap-datetimepicker/2.4.4/js/bootstrap-datetimepicker.js}"></script>
+<script type="text/javascript"
+        th:src="@{/webjars/bootstrap-datetimepicker/2.4.4/js/locales/bootstrap-datetimepicker.zh-CN.js}"></script>
 
 <script type="text/javascript">
     $('#datetimepicker').datetimepicker({
         forceParse: 0,//设置为0，时间不会跳转1899，会显示当前时间。
-        language:"zh-CN",//显示中文
+        language: "zh-CN",//显示中文
         format: 'yyyy-mm-dd',//显示格式
         minView: "month",//设置只显示到月份
         initialDate: new Date(),//初始化当前日期
@@ -101,14 +109,14 @@
     // $("#datetimepicker").datetimepicker("setDate", new Date() );  //设置显示默认当天的时间
 
     //获取年龄
-    $('#birthday').change(function(){
+    $('#birthday').change(function () {
         var strBirthday = $('#birthday').val();
         $('#age').val(jsGetAge(strBirthday));
     })
 
-    function jsGetAge(strBirthday){
+    function jsGetAge(strBirthday) {
         var returnAge;
-        var strBirthdayArr=strBirthday.split("-");
+        var strBirthdayArr = strBirthday.split("-");
         var birthYear = strBirthdayArr[0];
         var birthMonth = strBirthdayArr[1];
         var birthDay = strBirthdayArr[2];
@@ -118,38 +126,27 @@
         var nowMonth = d.getMonth() + 1;
         var nowDay = d.getDate();
 
-        if(nowYear == birthYear){
+        if (nowYear == birthYear) {
             returnAge = 0;//同年 则为0岁
-        }
-        else{
-            var ageDiff = nowYear - birthYear ; //年之差
-            if(ageDiff > 0){
-                if(nowMonth == birthMonth) {
+        } else {
+            var ageDiff = nowYear - birthYear; //年之差
+            if (ageDiff > 0) {
+                if (nowMonth == birthMonth) {
                     var dayDiff = nowDay - birthDay;//日之差
-                    if(dayDiff < 0)
-                    {
+                    if (dayDiff < 0) {
                         returnAge = ageDiff - 1;
+                    } else {
+                        returnAge = ageDiff;
                     }
-                    else
-                    {
-                        returnAge = ageDiff ;
-                    }
-                }
-                else
-                {
+                } else {
                     var monthDiff = nowMonth - birthMonth;//月之差
-                    if(monthDiff < 0)
-                    {
+                    if (monthDiff < 0) {
                         returnAge = ageDiff - 1;
-                    }
-                    else
-                    {
-                        returnAge = ageDiff ;
+                    } else {
+                        returnAge = ageDiff;
                     }
                 }
-            }
-            else
-            {
+            } else {
                 returnAge = -1;//返回-1 表示出生日期输入错误 晚于今天
             }
         }
@@ -187,8 +184,8 @@
                         }
                     }
                 },
-                age:{
-                    trigger:"change",
+                age: {
+                    trigger: "change",
                     validators: {
                         notEmpty: {
                             message: '*请选择出生日期得到年龄*'

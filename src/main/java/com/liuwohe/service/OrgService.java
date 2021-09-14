@@ -5,7 +5,8 @@ import com.liuwohe.entity.SelectEntity;
 
 import java.util.List;
 
-public interface OrgService{
+public interface OrgService {
     List<OrganizationEntity> getOrgNodes(Integer id);
+
     List<OrganizationEntity> getOrgTree(SelectEntity selectEntity);
 }

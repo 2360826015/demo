@@ -13,6 +13,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
+
 @ToString
 @Getter
 @Setter
@@ -22,26 +23,26 @@ public class EmployeeEntity extends Model<EmployeeEntity> implements Serializabl
     @Excel(name = "员工编号")
     private Integer id;
 
-    @Excel(name = "所属组织编号",orderNum = "1")
+    @Excel(name = "所属组织编号", orderNum = "1")
     private String orgId;
 
-    @Excel(name = "性别",orderNum = "3",replace = {"男_1", "女_2"})
+    @Excel(name = "性别", orderNum = "3", replace = {"男_1", "女_2"})
     private String sex;
 
-    @Excel(name = "出生日期",exportFormat = "yyyy-MM-dd",format = "yyyy-MM-dd",databaseFormat = "yyyyMMdd",orderNum = "4")
+    @Excel(name = "出生日期", exportFormat = "yyyy-MM-dd", format = "yyyy-MM-dd", databaseFormat = "yyyyMMdd", orderNum = "4")
     @DateTimeFormat(pattern = "yyyy-mm-dd")
     private Date birthday;
 
-    @Excel(name = "员工姓名",orderNum = "2")
+    @Excel(name = "员工姓名", orderNum = "2")
     @TableField(value = "e_name")
     private String name;
 
-    @Excel(name = "年龄",orderNum = "5")
+    @Excel(name = "年龄", orderNum = "5")
     private Integer age;
 
-    @Excel(name = "薪资",orderNum = "6")
+    @Excel(name = "薪资", orderNum = "6")
     private Double salary;
 
     @TableField(exist = false)
     private OrganizationEntity organization;
-  }
+}

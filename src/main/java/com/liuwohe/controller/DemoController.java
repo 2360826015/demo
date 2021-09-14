@@ -27,17 +27,17 @@ public class DemoController {
 
     //进入主页面
     @RequestMapping("/index")
-    public String testFind(Model model){
+    public String testFind(Model model) {
         //得到员工列表
-        List<EmployeeEntity> empList=empService.getList();
-        model.addAttribute("empList",empList);
+        List<EmployeeEntity> empList = empService.getList();
+        model.addAttribute("empList", empList);
         return "emp/list";
     }
 
     //页面加载时返回部门列表
     @PostMapping("/index")
     @ResponseBody
-    public List<OrganizationEntity> getTee(){
+    public List<OrganizationEntity> getTee() {
         SelectEntity selectEntity = new SelectEntity();
         //设置初始parentId
         selectEntity.setOrgName(0);
@@ -48,8 +48,8 @@ public class DemoController {
     //条件查询
     @GetMapping("/select")
     @ResponseBody
-    public List<EmployeeEntity> selectByChoose(SelectEntity select){
-        System.out.println("前端传入条件："+select);
+    public List<EmployeeEntity> selectByChoose(SelectEntity select) {
+        System.out.println("前端传入条件：" + select);
         List<EmployeeEntity> empList = empService.findById(select);
         return empList;
     }
@@ -58,7 +58,7 @@ public class DemoController {
     @ResponseBody
     @RequestMapping("/download")
     public void downLoadExcel(HttpServletResponse response) throws IOException {
-            empService.downloadExcel(response);
+        empService.downloadExcel(response);
     }
 
 }

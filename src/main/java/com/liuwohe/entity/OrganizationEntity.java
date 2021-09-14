@@ -13,6 +13,7 @@ import lombok.ToString;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
 @ToString
 @Getter
 @Setter
@@ -30,5 +31,5 @@ public class OrganizationEntity extends Model<OrganizationEntity> implements Ser
 //    private List<EmployeeEntity> empList=new ArrayList<>();
 
     @TableField(exist = false)
-    private List<OrganizationEntity> nodes=new ArrayList<>();
+    private List<OrganizationEntity> nodes = new ArrayList<>();
 }

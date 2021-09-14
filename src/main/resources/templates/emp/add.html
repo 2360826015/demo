@@ -11,9 +11,11 @@
     <title>Dashboard Template for Bootstrap</title>
     <!-- Bootstrap core CSS -->
 
-    <link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/5.0.1/css/bootstrap.min.css}" rel="stylesheet">
-<!--    日期选择器-->
-    <link href="asserts/css/bootstrap-datetimepicker.min.css" th:href="@{/webjars/bootstrap-datetimepicker/2.4.4/css/bootstrap-datetimepicker.min.css}" rel="stylesheet" />
+    <link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/5.0.1/css/bootstrap.min.css}"
+          rel="stylesheet">
+    <!--    日期选择器-->
+    <link href="asserts/css/bootstrap-datetimepicker.min.css"
+          th:href="@{/webjars/bootstrap-datetimepicker/2.4.4/css/bootstrap-datetimepicker.min.css}" rel="stylesheet"/>
     <!-- Custom styles for this template -->
     <link href="asserts/css/dashboard.css" th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
     <style type="text/css">
@@ -41,17 +43,17 @@
             -webkit-animation: chartjs-render-animation 0.001s;
             animation: chartjs-render-animation 0.001s;
         }
-        .nig
-        {
-            color:Gray;
+
+        .nig {
+            color: Gray;
         }
     </style>
 </head>
 
 <body>
 <div th:replace="commons/bar::topbar"></div>
-<div th:replace="~{commons/bar::#sidebar(activeUri='list')}" ></div>
-    <main style="margin-left: 300px" role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+<div th:replace="~{commons/bar::#sidebar(activeUri='list')}"></div>
+<main style="margin-left: 300px" role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
     <form th:action="@{/add}" method="post">
         <div style="margin-bottom: 20px;margin-top: 20px" class="form-group">
             <label>姓名</label>
@@ -59,10 +61,10 @@
         </div>
         <div style="margin-bottom: 20px" class="form-group">
             <label>性别</label>
-            <select  style="width: 500px" class="form-control" name="sex">
+            <select style="width: 500px" class="form-control" name="sex">
                 <option name="sex" value="1">男</option>
                 <option name="sex" value="2">女</option>
-<!--                <option selected hidden>选择性别</option>-->
+                <!--                <option selected hidden>选择性别</option>-->
             </select>
         </div>
         <div style="margin-bottom: 20px" class="form-group">
@@ -77,22 +79,24 @@
         <div style="margin-bottom: 20px" class="form-group">
             <label>所属组织</label>
             <!--提交的是部门的id-->
-            <select  style="width: 500px" id="orgName" class="form-control" name="orgId">
-                <option  th:value="${olist.id}" th:each="olist:${orgList}" th:text="${olist.text}"></option>
+            <select style="width: 500px" id="orgName" class="form-control" name="orgId">
+                <option th:value="${olist.id}" th:each="olist:${orgList}" th:text="${olist.text}"></option>
                 <option value="" selected hidden>选择所属组织</option>
             </select>
         </div>
         <button style="margin-bottom: 20px" id="subBtn" type="submit" class="btn btn-primary">提交添加</button>
     </form>
-    </main>
+</main>
 
 
 <!--	时间选择器-->
 <script type="text/javascript" th:src="@{/webjars/jquery/3.6.0/jquery.js}"></script>
 <script type="text/javascript" th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
 <script type="text/javascript" th:src="@{/webjars/bootstrap/5.0.1/js/bootstrap.min.js}"></script>
-<script type="text/javascript" th:src="@{/webjars/bootstrap-datetimepicker/2.4.4/js/bootstrap-datetimepicker.js}"></script>
-<script type="text/javascript" th:src="@{/webjars/bootstrap-datetimepicker/2.4.4/js/locales/bootstrap-datetimepicker.zh-CN.js}"></script>
+<script type="text/javascript"
+        th:src="@{/webjars/bootstrap-datetimepicker/2.4.4/js/bootstrap-datetimepicker.js}"></script>
+<script type="text/javascript"
+        th:src="@{/webjars/bootstrap-datetimepicker/2.4.4/js/locales/bootstrap-datetimepicker.zh-CN.js}"></script>
 
 <script type="text/javascript">
     $('#datetimepicker').datetimepicker({
@@ -107,8 +111,8 @@
     $("#datetimepicker").datetimepicker("setDate", new Date());  //设置显示默认当天的时间
 
     //获取年龄
-    $(function (){
-        if($('#birthday').val()!==""){
+    $(function () {
+        if ($('#birthday').val() !== "") {
             var strBirthday = $('#birthday').val();
             $('#age').val(jsGetAge(strBirthday));
         }
@@ -188,8 +192,8 @@
                         }
                     }
                 },
-                age:{
-                    trigger:"change",
+                age: {
+                    trigger: "change",
                     validators: {
                         notEmpty: {
                             message: '*请选择出生日期得到年龄*'

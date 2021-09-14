@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.liuwohe.repository.OrganizationEntityMapper">
-  <resultMap id="BaseResultMap" type="com.liuwohe.entity.OrganizationEntity">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="org_name" jdbcType="VARCHAR" property="text" />
-    <result column="parent_id" jdbcType="INTEGER" property="parentId" />
-<!--    <collection property="empList" column="id" select="com.liuwohe.repository.EmployeeEntityMapper.findList"/>-->
-    <collection property="nodes" column="id" select="getNodes"/>
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, org_name, parent_id
-  </sql>
-  <select id="findAll" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from organization
-    <where>
-        <if test="id !=null and id != ''">
-          id=#{id}
-        </if>
-    </where>
-  </select>
-  <select id="getNodes" resultMap="BaseResultMap">
-    select org.id,org.org_name
-    from organization org
-    <where> org.id=#{id}
-        <if test="id !=null and id!=''">
-         or org.parent_id=#{id}
-        </if>
-    </where>
-  </select>
+    <resultMap id="BaseResultMap" type="com.liuwohe.entity.OrganizationEntity">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="org_name" jdbcType="VARCHAR" property="text"/>
+        <result column="parent_id" jdbcType="INTEGER" property="parentId"/>
+        <!--    <collection property="empList" column="id" select="com.liuwohe.repository.EmployeeEntityMapper.findList"/>-->
+        <collection property="nodes" column="id" select="getNodes"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, org_name, parent_id
+    </sql>
+    <select id="findAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from organization
+        <where>
+            <if test="id !=null and id != ''">
+                id=#{id}
+            </if>
+        </where>
+    </select>
+    <select id="getNodes" resultMap="BaseResultMap">
+        select org.id,org.org_name
+        from organization org
+        <where>org.id=#{id}
+            <if test="id !=null and id!=''">
+                or org.parent_id=#{id}
+            </if>
+        </where>
+    </select>
 </mapper>

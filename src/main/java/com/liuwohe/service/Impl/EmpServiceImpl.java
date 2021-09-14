@@ -28,7 +28,7 @@ public class EmpServiceImpl implements EmpService {
     private OrgService orgService;
 
     @RabbitListener(queues = "liuwohe.test")
-    public void test(){
+    public void test() {
         System.out.println("消息队列监听ing");
     }
 
@@ -45,10 +45,10 @@ public class EmpServiceImpl implements EmpService {
         //根据前端传入的根节点id查询其子节点并放入List集合中
         List<Object> idList = new ArrayList<>();
         List<OrganizationEntity> nodes = orgService.getOrgNodes(select.getOrgName());
-        nodes.forEach(n->{
+        nodes.forEach(n -> {
             idList.add(n.getId());
-            if(n.getNodes()!=null && n.getNodes().size()>0){
-                n.getNodes().forEach(no->{
+            if (n.getNodes() != null && n.getNodes().size() > 0) {
+                n.getNodes().forEach(no -> {
                     idList.add(no.getId());
                 });
             }
@@ -56,7 +56,9 @@ public class EmpServiceImpl implements EmpService {
         //去除id集合中的重复值
         Set<Object> linkedHashSet = new LinkedHashSet<>(idList);
         List<Object> list = new ArrayList<>();
-        linkedHashSet.forEach(e->{ list.add(e);});
+        linkedHashSet.forEach(e -> {
+            list.add(e);
+        });
         //将得到的节点集合赋值给实体类属性
         select.setNodesList(list);
         //执行emp列表的查询,传入节点集合

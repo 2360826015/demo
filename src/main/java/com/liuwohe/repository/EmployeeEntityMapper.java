@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Select;
 import java.util.List;
 
 public interface EmployeeEntityMapper extends BaseMapper<EmployeeEntity> {
-//    @Select("<script>"+
+    //    @Select("<script>"+
 //            "select emp.id, emp.e_name,emp.sex,emp.birthday,emp.age,emp.salary,emp.org_id,org.org_name ,org.parent_id from employee emp join organization org"+
 //            "<where>"+
 //            "emp.org_id=org.id"+
